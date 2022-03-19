@@ -1,4 +1,8 @@
--- Домашнее задание к лекции #3 «Работа с PostgreSQL. Создание БД»
+-- Домашнее задание к лекции #3 «Проектирование БД. Связи. 3НФ»
+-- Задание состоит из двух частей:
+-- Спроектировать и нарисовать схему (как в первой домашней работе). Прислать изображение со схемой.
+-- Написать SQL-запросы, создающие спроектированную БД (как во второй домашней работе).
+-- Прислать ссылку на файл, содержащий SQL-запросы.
 -- Написать SQL-запросы для создания таблиц из схемы, реализованной в предыдущем домашнем задании.
 -- Результатом работы является файл, содержащий SQL-запросы.
 -- drop table if exists Track cascade ;
@@ -9,8 +13,6 @@
 -- drop table if exists ArtistGenre cascade ;
 -- drop table if exists ArtistAlbum cascade ;
 -- drop table if exists TrackCollection cascade ;
-
-
 
 create table if not exists Genre (
     id serial primary key,
@@ -43,7 +45,8 @@ create table if not exists ArtistAlbum (
 create table if not exists Track (
     id serial primary key,
     track_name varchar(100) not null,
-    track_time interval minute to second not null,
+--     track_time interval minute to second not null,
+    track_time numeric(6,2) not null check ( track_time > 0 ),
     album_id integer not null references Album(id)
 );
 
@@ -58,9 +61,3 @@ create table if not exists TrackCollection (
     collection_id integer not null references Collection(id),
     constraint pk_TrackCollection primary key (track_id, collection_id)
 );
-
-
-
-
-
-
